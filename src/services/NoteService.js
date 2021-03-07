@@ -25,6 +25,20 @@ class NoteService {
             );
         });
     }
+
+    add(title, body) {
+        return new Promise((resolve, reject) => {
+            database.query(
+                'INSERT INTO notes (title, body) VALUES (?, ?)',
+                [title, body],
+                (error, result) => {
+                    if (error) return reject(error);
+
+                    return resolve(result.insertId);
+                }
+            );
+        });
+    }
 }
 
 module.exports = new NoteService();

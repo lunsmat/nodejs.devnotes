@@ -41,7 +41,28 @@ class NoteController {
         return res.json(json);
     }
 
-    async create(req, res) {}
+    async create(req, res) {
+        const { title, body } = req.body;
+
+        const json = {
+            error: '',
+            result: {},
+        };
+
+        if (title && body) {
+            const noteId = await NoteService.add(title, body);
+
+            json.result = {
+                id: noteId,
+                title,
+                body,
+            };
+        } else {
+            json.error = 'The field title or the field body was not sended';
+        }
+
+        return res.json(json);
+    }
 
     async update(req, res) {}
 
