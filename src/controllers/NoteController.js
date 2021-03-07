@@ -23,16 +23,29 @@ class NoteController {
             })
         );
 
-        res.json(json);
+        return res.json(json);
     }
 
-    show(req, res) {}
+    async show(req, res) {
+        const { id } = req.params;
 
-    create(req, res) {}
+        const json = {
+            error: '',
+            result: {},
+        };
 
-    update(req, res) {}
+        const note = await NoteService.findById(id);
 
-    delete(req, res) {}
+        if (note) json.result = note;
+
+        return res.json(json);
+    }
+
+    async create(req, res) {}
+
+    async update(req, res) {}
+
+    async delete(req, res) {}
 }
 
 module.exports = new NoteController();
