@@ -1,3 +1,4 @@
+const NoteService = require('../services/NoteService');
 const noteService = require('../services/NoteService');
 
 class NoteController {
@@ -7,7 +8,23 @@ class NoteController {
         });
     }
 
-    index(req, res) {}
+    async index(req, res) {
+        const json = {
+            error: '',
+            result: [],
+        };
+
+        const notes = await NoteService.getAll();
+
+        notes.map(note =>
+            json.result.push({
+                id: note.id,
+                title: note.title,
+            })
+        );
+
+        res.json(json);
+    }
 
     show(req, res) {}
 
