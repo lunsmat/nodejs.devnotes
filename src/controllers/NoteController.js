@@ -88,7 +88,18 @@ class NoteController {
         return res.json(json);
     }
 
-    async delete(req, res) {}
+    async delete(req, res) {
+        const { id } = req.params;
+
+        const json = {
+            error: '',
+            result: {},
+        };
+
+        await NoteService.delete(id);
+
+        return res.json(json);
+    }
 }
 
 module.exports = new NoteController();

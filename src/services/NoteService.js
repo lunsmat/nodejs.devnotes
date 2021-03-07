@@ -53,6 +53,20 @@ class NoteService {
             );
         });
     }
+
+    delete(id) {
+        return new Promise((resolve, reject) => {
+            database.query(
+                'DELETE FROM notes WHERE id = ?',
+                [id],
+                (error, result) => {
+                    if (error) return reject(error);
+
+                    return resolve(result);
+                }
+            );
+        });
+    }
 }
 
 module.exports = new NoteService();
