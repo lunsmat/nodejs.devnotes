@@ -39,6 +39,20 @@ class NoteService {
             );
         });
     }
+
+    update(id, title, body) {
+        return new Promise((resolve, reject) => {
+            database.query(
+                'UPDATE notes SET title = ?, body = ? WHERE id = ?',
+                [title, body, id],
+                (error, result) => {
+                    if (error) return reject(error);
+
+                    return resolve(result);
+                }
+            );
+        });
+    }
 }
 
 module.exports = new NoteService();
